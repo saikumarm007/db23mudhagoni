@@ -2,7 +2,7 @@
 Webapps Assignment on Pug.
 
 
-[Hosted at](https://fwb23mudhagoni.herokuapp.com/)
+[Hosted at](https://db23mudhagoni.herokuapp.com/)
 
 
 Class Petrol
