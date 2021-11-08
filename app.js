@@ -26,6 +26,12 @@ async function recreateDB() {
     petrol_type: "v-power",
     quantity: 16,
     cost: 64.09
+  });
+  let instance4 = new
+  Petrol({
+    petrol_type: "diesel",
+    quantity: 18,
+    cost: 74.09
   });  
   instance1.save(function (err, doc) {
     if (err) return console.error(err);
@@ -38,6 +44,10 @@ async function recreateDB() {
   instance3.save(function (err, doc) {
     if (err) return console.error(err);
     console.log("Third object saved")
+  });
+  instance4.save(function (err, doc) {
+    if (err) return console.error(err);
+    console.log("Fourth object saved")
   });
 }
 
