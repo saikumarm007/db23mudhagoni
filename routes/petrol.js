@@ -1,9 +1,6 @@
 var express = require('express');
+const petrol_controlers= require('../controllers/petrol');
 var router = express.Router();
-
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('petrol', { title: 'Search Results Petrol' });
-});
-
+/* GET costumes */
+router.get('/', petrol_controlers.petrol_view_all_Page );
 module.exports = router;
