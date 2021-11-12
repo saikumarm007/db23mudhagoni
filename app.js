@@ -45,10 +45,7 @@ async function recreateDB() {
     if (err) return console.error(err);
     console.log("Third object saved")
   });
-  instance4.save(function (err, doc) {
-    if (err) return console.error(err);
-    console.log("Fourth object saved")
-  });
+
 }
 
  
