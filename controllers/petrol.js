@@ -34,9 +34,17 @@ exports.petrol_create_post = async function (req, res) {
         res.send(`{"error": ${err}}`);
     }
 };
-// Handle petrol delete form on DELETE.
-exports.petrol_delete = function (req, res) {
-    res.send('NOT IMPLEMENTED: petrol delete DELETE ' + req.params.id);
+// Handle Petrol delete on DELETE. 
+exports.petrol_delete = async function(req, res) { 
+    console.log("delete "  + req.params.id) 
+    try { 
+        result = await Petrol.findByIdAndDelete( req.params.id)
+        console.log("Removed " + result) 
+        res.send(result) 
+    } catch (err) { 
+        res.status(500) 
+        res.send(`{"error": Error deleting ${err}}`); 
+    } 
 };
 // Handle petrol update form on PUT.
 exports.petrol_update_put = function (req, res) {
@@ -69,7 +77,7 @@ exports.petrol_view_all_Page = async function (req, res) {
     }
 };
 
-// Handle Costume update form on PUT. 
+// Handle petrol update form on PUT. 
 exports.petrol_update_put = async function(req, res) { 
     console.log(`update on id ${req.params.id} with body 
 ${JSON.stringify(req.body)}`) 
@@ -91,3 +99,58 @@ failed`);
 }; 
 
 
+ // Handle a show one view with id specified by query 
+ exports.petrol_view_one_Page = async function(req, res) { 
+    console.log("single view for id "  + req.query.id) 
+    try{ 
+        result = await Petrol.findById( req.query.id) 
+        res.render('petroldetail',  
+{ title: 'Petrol Detail', toShow: result }); 
+    } 
+    catch(err){ 
+        res.status(500) 
+        res.send(`{'error': '${err}'}`); 
+    } 
+}; 
+
+ // Handle building the view for creating a petrol. 
+// No body, no in path parameter, no query. 
+// Does not need to be async 
+exports.petrol_create_Page =  function(req, res) { 
+    console.log("create view") 
+    try{ 
+        res.render('petrolcreate', { title: 'Petrol Create'}); 
+    } 
+    catch(err){ 
+        res.status(500) 
+        res.send(`{'error': '${err}'}`); 
+    } 
+}; 
+
+// Handle building the view for updating a petrol. 
+// query provides the id 
+exports.petrol_update_Page =  async function(req, res) { 
+    console.log("update view for item "+req.query.id) 
+    try{ 
+        let result = await Petrol.findById(req.query.id) 
+        res.render('petrolupdate', { title: 'Petrol Update', toShow: result }); 
+    } 
+    catch(err){ 
+        res.status(500) 
+        res.send(`{'error': '${err}'}`); 
+    } 
+}; 
+
+// Handle a delete one view with id from query 
+exports.petrol_delete_Page = async function(req, res) { 
+    console.log("Delete view for id "  + req.query.id) 
+    try{ 
+        result = await Petrol.findById(req.query.id)
+        res.render('petroldelete', { title: 'Petrol Delete', toShow:
+result }); 
+    } 
+    catch(err){ 
+        res.status(500) 
+        res.send(`{'error': '${err}'}`); 
+    } 
+};

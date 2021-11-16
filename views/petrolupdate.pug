@@ -1,0 +1,45 @@
+extends layout 
+ 
+block content 
+  h1= title 
+ 
+  - let petrolid = toShow._id 
+  - let petrol_type = toShow.petrol_type  
+  - let petrolquantity = toShow.quantity
+  - let petrolcost = toShow.cost
+   
+  div.row(class='mb-2') 
+    div.mr-1 ID is 
+    div #{petrolid} 
+  - let actionid = "/resource/petrol/" + petrolid 
+  form(id='PetrolForm', action= actionid, method="PUT") 
+    div.form-group 
+        label.petrolAttr(for='petrol_type') Petrol type 
+        input#petrol_type(type='text', name='petrol_type', value= petrol_type ) 
+    div.form-group 
+        label.petrolAttr(for='size') Petrol size 
+        input#quantity(type='text', name='quantity', value= petrolquantity) 
+    div.form-group 
+        label.petrolAttr(for='cost') Petrol cost 
+        input#cost(type='number', name='cost', value= petrolcost ) 
+    input(type="submit") 
+
+    button(class="btn btn-secondary m-2" onclick="window.location.href='/petrol'") Cancel
+ 
+  script. 
+    document.forms['PetrolForm'].addEventListener('submit', (event) => { 
+      event.preventDefault(); 
+      // TODO do something here to show user that form is being submitted 
+      fetch(event.target.action, { 
+        method: 'PUT', 
+        body: new URLSearchParams(new FormData(event.target)) // event.target is the form 
+      }).then((resp) => { 
+        return resp.json(); // or resp.text() or whatever the server sends 
+      }).then((body) => { 
+        alert("Update succeded") 
+        // TODO handle body 
+      }).catch((error) => { 
+        // TODO handle error 
+        alert("Update failed " + error ) 
+      }); 
+    }); 

@@ -1,0 +1,36 @@
+extends layout 
+ 
+block content 
+  h1= title 
+ 
+  form(id='PetrolForm', action="/resource/petrol", method="POST") 
+    div.form-group 
+        label.petrolAttr(for='petrol_type') Petrol type 
+        input#petrol_type(type='text', name='petrol_type') 
+    div.form-group 
+        label.petrolAttr(for='quantity') Petrol quantity 
+        input#quantity(type='text', name='quantity')
+    div.form-group 
+        label.petrolAttr(for='cost') Petrol cost 
+        input#cost(type='number', name='cost') 
+    input(type="submit") 
+
+    button(class="btn btn-secondary m-2" onclick="window.location.href='/petrol'") Cancel
+ 
+  script. 
+    document.forms['PetrolForm'].addEventListener('submit', (event) => { 
+      event.preventDefault(); 
+      // TODO do something here to show user that form is being submitted 
+      fetch(event.target.action, { 
+        method: 'POST', 
+        body: new URLSearchParams(new FormData(event.target)) // event.target is the form 
+      }).then((resp) => { 
+        return resp.json(); // or resp.text() or whatever the server sends 
+      }).then((body) => { 
+        alert("Save succeded") 
+        // TODO handle body 
+      }).catch((error) => { 
+        // TODO handle error 
+        alert("Save failed " + error ) 
+      }); 
+    }); 

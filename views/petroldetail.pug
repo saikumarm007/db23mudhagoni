@@ -1,0 +1,24 @@
+extends layout 
+ 
+block content 
+  h1= title 
+ 
+  - let petrolid = toShow._id 
+  - let petrol_type = toShow.petrol_type 
+  - let petrolquantity = toShow.quantity
+  - let petrolsize = toShow.cost
+  div 
+    div.row 
+      div(class='petrolAttr mr-3') Petrol ID is: 
+      div #{petrolid} 
+    div.row 
+      div(class='petrolAttr mr-3') Petrol Type is: 
+      div #{petrol_type} 
+    div.row 
+      div(class='petrolAttr mr-3') Petrol quantity is: 
+      div #{petrolquantity} 
+    div.row 
+      div(class='petrolAttr mr-3') Petrol cost is: 
+      div #{petrolcost} 
+
+      button(class="btn btn-secondary m-2" onclick="window.location.href='/petrol'") Cancel

@@ -1,0 +1,55 @@
+extends layout 
+ 
+block content 
+  h1= title 
+ 
+  if (toShow == null) 
+    h2 No instance to delete 
+  else 
+    - let petrolid = toShow._id 
+    - let petrol_type = toShow.petrol_type
+    - let petrolquantity = toShow.quantity
+    - let petrolcost = toShow.petrol 
+    - let actionid = "/resource/petrol/" + petrolid 
+    script let actionid = "#{actionid}" 
+    div 
+      div.row 
+        div(class='petrolAttr mr-3') Petrol ID is: 
+        div #{petrolid} 
+      div.row 
+        div(class='petrolAttr mr-3') Petrol Type is: 
+        div #{petrol_type} 
+      div.row 
+        div(class='petrolAttr mr-3') Petrol quantity is: 
+        div #{petrolquantity} 
+      div.row 
+        div(class='petrolAttr mr-3') Petrol Cost is: 
+        div #{petrolcost} 
+ 
+    button(class="btn btn-danger m-2" onclick="deleteOnid()") Delete 
+     
+
+    button(class="btn btn-secondary m-2" onclick="window.location.href='/petrol'") Cancel
+ 
+  script. 
+    function cancel() { 
+      // Go back to the home page for the petrol collection 
+      window.location.href='/petrol' 
+    } 
+  script. 
+    function deleteOnid() { 
+      console.log("starting delete") 
+      // delete first 
+      fetch(actionid, { 
+        method: 'DELETE'      // Don't need a body for the delete 
+      }).then((resp) => { 
+        return resp.json(); // or resp.text() or whatever the server sends 
+      }).then((body) => { 
+        alert("Delete succeded") 
+        window.location.href='/petrol'
+        // TODO handle body 
+      }).catch((error) => { 
+        // TODO handle error 
+        alert("Delete failed " + error ) 
+      }); 
+    } 
