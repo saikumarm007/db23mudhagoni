@@ -68,7 +68,7 @@ exports.petrol_view_all_Page = async function (req, res) {
     try {
         thePetrol = await Petrol.find();
         res.render('petrol', {
-            title: 'petrol Search Results',
+            title: 'Petrol Search Results',
             results: thePetrol
         });
     } catch (err) {
